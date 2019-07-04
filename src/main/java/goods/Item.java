@@ -12,8 +12,9 @@ public class Item {
     private BigDecimal price;
     private double taxPercentage = 10;
     private Type type = Type.OTHER;
+    private Boolean imported;
 
-    enum Type {
+    public enum Type {
         BOOK,
         MEDICAL,
         FOOD,
@@ -26,6 +27,14 @@ public class Item {
         public List<Type> getTaxFreeTypes() {
             return Arrays.asList(BOOK, MEDICAL, FOOD);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isImported() {
+        return imported;
     }
 
     public BigDecimal getPrice() {
@@ -81,6 +90,8 @@ public class Item {
             } else {
                 item.taxPercentage = taxPercentage;
             }
+
+            item.imported = imported;
 
             if (imported)
                 item.taxPercentage = item.taxPercentage + 5;

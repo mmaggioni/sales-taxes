@@ -5,19 +5,18 @@ import notification.NotificationService;
 public class StandardOrderPurchaser implements OrderPurchaser {
 
     private NotificationService notificationService;
+    private OrderRepository orderRepository;
 
-    public StandardOrderPurchaser(NotificationService notificationService) {
+    public StandardOrderPurchaser(NotificationService notificationService, OrderRepository orderRepository) {
         this.notificationService = notificationService;
+        this.orderRepository = orderRepository;
     }
 
     public void purchase(Order order) {
 
-        // code to purchase the order
-        // ...
         order.purchase();
-        // do other stuff, then save
 
-
+        orderRepository.save(order);
         notificationService.orderPlaced(order);
     }
 

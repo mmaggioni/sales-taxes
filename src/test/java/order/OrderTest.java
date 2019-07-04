@@ -5,6 +5,7 @@ import goods.ItemCreationHelper;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OrderTest {
@@ -20,11 +21,6 @@ public class OrderTest {
 
         Order order = new Order(items);
 
-        //then
-//        assert order.getItemList().get(0).getTaxedPrice().toString().equals("12.49");
-//        assert order.getItemList().get(1).getTaxedPrice().toString().equals("16.49");
-//        assert order.getItemList().get(2).getTaxedPrice().toString().equals("0.85");
-
         assert order.getSalesTaxes().toString().equals("1.50");
         assert order.getTotal().toString().equals("29.83");
 
@@ -38,9 +34,6 @@ public class OrderTest {
 
         List<Item> items = Arrays.asList(chocolate, perfume);
         Order order = new Order(items);
-
-//        assert order.getItemList().get(0).getTaxedPrice().toString().equals("10.50");
-//        assert order.getItemList().get(1).getTaxedPrice().toString().equals("54.65");
 
         assert order.getSalesTaxes().toString().equals("7.65");
         assert order.getTotal().toString().equals("65.15");
@@ -58,14 +51,33 @@ public class OrderTest {
         List<Item> items = Arrays.asList(importedPerfume, perfume, pills, importedChocolate);
         Order order = new Order(items);
 
-//        assert order.getItemList().get(0).getTaxedPrice().toString().equals("32.19");
-//        assert order.getItemList().get(1).getTaxedPrice().toString().equals("20.89");
-//        assert order.getItemList().get(2).getTaxedPrice().toString().equals("9.75");
-//        assert order.getItemList().get(3).getTaxedPrice().toString().equals("11.85");
-
         assert order.getSalesTaxes().toString().equals("6.70");
         assert order.getTotal().toString().equals("74.68");
 
+    }
+
+    @Test
+    public void test4() {
+
+        Item importedPerfume = ItemCreationHelper.getImportedItem("bottle of perfume", 27.99).build();
+        Item pills = ItemCreationHelper.getMedicine("packet of headache pills", 9.75).build();
+        Item importedChocolate = ItemCreationHelper.getImportedFood("box of chocolate", 11.25).build();
+
+        List<Item> items = Arrays.asList(importedPerfume, pills, importedChocolate, pills, importedPerfume);
+        Order order = new Order(items);
+
+        assert order.getSalesTaxes().toString().equals("9.00");
+        assert order.getTotal().toString().equals("95.73");
+
+    }
+
+    @Test
+    public void testThePurchaseOfAnOrder() {
+        Order order = new Order(Collections.emptyList());
+
+        order.purchase();
+
+        assert order.isDone();
     }
 
 }

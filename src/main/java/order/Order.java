@@ -3,7 +3,6 @@ package order;
 import goods.Item;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class Order {
@@ -11,7 +10,7 @@ public class Order {
     private List<Item> itemList;
     private Status orderStatus = Status.NEW;
 
-    enum Status {
+    private enum Status {
         NEW,
         DONE
     }
@@ -25,21 +24,21 @@ public class Order {
     }
 
     public BigDecimal getTotal() {
-        return round(itemList
+        return itemList
                 .stream()
                 .map(Item::getTaxedPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add));
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getTotalWithoutTax() {
-        return round(itemList
+        return itemList
                 .stream()
                 .map(Item::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add));
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getSalesTaxes() {
-        return round(getTotal().subtract(getTotalWithoutTax()));
+        return getTotal().subtract(getTotalWithoutTax());
     }
 
     public void purchase() {
@@ -50,7 +49,4 @@ public class Order {
         return orderStatus == Status.DONE;
     }
 
-    private BigDecimal round(BigDecimal price) { // todo string or double
-        return price.setScale(2, RoundingMode.HALF_UP);
-    }
 }
