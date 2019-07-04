@@ -16,7 +16,7 @@ public class StandardOrderPurchaser implements OrderPurchaser {
 
         order.purchase();
 
-        orderRepository.save(order);
+//        orderRepository.save(order);
         notificationService.orderPlaced(order);
     }
 
