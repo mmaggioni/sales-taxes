@@ -6,7 +6,7 @@ jdk:
 stages:
   - name: build
   - name: release
-    if: branch = release
+    if: branch = master
 
 jobs:
   include:
