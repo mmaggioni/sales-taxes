@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mmaggioni/sales-taxes.svg?branch=master)](https://travis-ci.org/mmaggioni/sales-taxes)
+
 A java project that simulate an order for various items with different sales tax.
 
 Request
